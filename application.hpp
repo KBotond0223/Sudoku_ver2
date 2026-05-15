@@ -5,18 +5,19 @@
 #include <vector>
 #include "widgets.hpp"
 
+class JatekMester;
+
 class Application
 {
 public:
     Application(int,int);
-    void betolt(std::string);
-    void ellenor(int);
-    void megold();
-    void event_loop(int, int);
-    void register_widget(Widget*);
+    void event_loop();
+    virtual void action(std::string,int)=0;
+    virtual void register_widget(Widget*);
+    virtual void register_jm(JatekMester*);
 protected:
     std::vector<Widget*> _widgets;
-
+    JatekMester *_jm;
 };
 
 #endif // APPLICATION_HPP

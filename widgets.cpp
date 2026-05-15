@@ -14,6 +14,10 @@ bool Widget::benne_van(int mouse_x, int mouse_y)
     return mouse_x>_x && mouse_x<_x+_szel && mouse_y>_y && mouse_y<_y+_mag;
 }
 
+std::string Widget::get_name() const{
+    return _name;
+}
+
 
 
 

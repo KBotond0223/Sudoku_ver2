@@ -60,4 +60,7 @@ int NumInput::data() const{
     return _number;
 }
 
+std::string NumInput::get_name() const{
+    return _name;
+}
 
