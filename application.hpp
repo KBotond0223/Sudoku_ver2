@@ -15,6 +15,7 @@ public:
     virtual void action(std::string,genv::event,int)=0;
     virtual void register_widget(Widget*);
     virtual void register_jm(JatekMester*);
+    virtual void win_msg() const = 0;
 protected:
     std::vector<Widget*> _widgets;
     JatekMester *_jm;

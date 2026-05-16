@@ -14,6 +14,7 @@ public:
     virtual bool benne_van(int mouse_x, int mouse_y);
     virtual void rajzol() const = 0;
     virtual void micsi(genv::event ev) = 0;
+    //Ezt csak a MyApp-ban lévő action csekk miatt hoztam létre
     virtual std::string get_name() const=0;
 };
 

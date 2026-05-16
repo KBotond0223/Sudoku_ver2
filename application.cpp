@@ -14,20 +14,26 @@ void Application::event_loop(){
     event ev;
     int focus = -1;
     while(gin >> ev ) {
-        if (ev.type == ev_mouse && ev.button==btn_left) {
+        if ((ev.type == ev_mouse && ev.button==btn_left) || (ev.type == ev_mouse && ev.button==btn_right) ) {
             for (size_t i=0;i<_widgets.size();i++) {
                 if (_widgets[i]->benne_van(ev.pos_x, ev.pos_y)) {
-                    focus = i;
-                    action("mouse",ev,focus);
+                    if(_widgets[i]->get_name()=="nb" || _widgets[i]->get_name()=="ni"){
+                        focus = i;
+                        action("mouse",ev,focus);
+                    }
+                    else{
+                        _widgets[i]->micsi(ev);
+                    }
                 }
             }
         }
-        if (focus!=-1) {
+        if (focus!=-1 && !(ev.type == ev_mouse && ev.button == btn_left)) {
             _widgets[focus]->micsi(ev);
         }
         for (Widget * w : _widgets) {
             w->rajzol();
         }
+        win_msg();
         gout << refresh;
     }
 }

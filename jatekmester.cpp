@@ -1,6 +1,7 @@
 #include "jatekmester.hpp"
 #include "numbox.hpp"
 #include <fstream>
+#include <iostream>
 
 JatekMester::JatekMester(Application* parent):
     _parent(parent)
@@ -8,12 +9,24 @@ JatekMester::JatekMester(Application* parent):
     _parent->register_jm(this);
 }
 
-
+//Beolvasásnál adattárolásra kell
+//Csak azért hogy egyszerűbb legyen
 struct Koor{
     int _sor;
     int _oszlop;
     int _num;
 };
+
+//Megnézi megoldottuk-e a map-ot
+bool JatekMester::megold(std::vector<NumBox*> nbv){
+    bool kesz=true;
+    for(int i=0;i<81;i++){
+        if(nbv[i]->get_hiba()==true || nbv[i]->get_num()==0){
+            kesz=false;
+        }
+    }
+    return kesz;
+}
 
 void JatekMester::ellenorMester(std::vector<NumBox*> nbv){
     //Minden NumBox-ot "hibátlanná" teszünk
@@ -90,14 +103,15 @@ void JatekMester::ellenor(int k, int l,std::vector<NumBox*> nbv){
 
 void JatekMester::betolt(std::string fajl,std::vector<NumBox*> nbv){
     std::ifstream be(fajl);
-
+    if(!be.is_open()){
+        return;  //Nincs meg a fájl ezért siesta
+    }
     std::vector<Koor> u_v;
-    while(be.good()){
-        //o=oszlopszám
-        //s=sorszám
-        //n=maga a szám
-        int o,s,n;
-        be>>o>>s>>n;
+    //o=oszlopszám
+    //s=sorszám
+    //n=maga a szám
+    int o,s,n;
+    while(be>>o>>s>>n){
         Koor u;
         u._sor=s;
         u._oszlop=o;
@@ -106,16 +120,22 @@ void JatekMester::betolt(std::string fajl,std::vector<NumBox*> nbv){
     }
     //Beállítjuk a fájlból kinyert számokat, úgy hogy aztán ne lehessen azokat változtatni
     for(int i=0;i<u_v.size();i++){
-        nbv[u_v[i]._sor*9+u_v[i]._oszlop]->set_num(u_v[i]._num);
-        nbv[u_v[i]._sor*9+u_v[i]._oszlop]->lock(true);
+        int ind =u_v[i]._oszlop*9+u_v[i]._sor;
+        if(ind>=0 && ind<81){
+            nbv[ind]->set_num(u_v[i]._num);
+            nbv[ind]->lock(true);
+        }
+
     }
 }
 
-
+//Ha új map-ot választunk akkor minden menjen alapállapotba
 void JatekMester::tisztit(std::vector<NumBox*> nbv){
-    for(int i=0;i<81;i++){
-        nbv[i]->set_hiba(false);
-        nbv[i]->lock(false);
-        nbv[i]->set_num(0);
+    for(int i=0;i<9;i++){
+        for(int j=0;j<9;j++){
+            nbv[i*9+j]->set_hiba(false);
+            nbv[i*9+j]->lock(false);
+            nbv[i*9+j]->set_num(0);
+        }
     }
 }

@@ -13,8 +13,18 @@ void NumBox::rajzol() const{
 
     //Ha a szám le van lock-olva
     if(_locked==true){
-        can<<move_to(2,2)<<color(155,155,155)<<box(_szel-4,_mag-4);
-        can<<move_to(_szel/2,_mag/2)<<color(0,0,0)<<text(std::to_string(_number));
+        //Ha hibás, ez csak azért van hogy a felhasználó láthassa mivel
+        //is van probléma
+        if(_hiba==true){
+            can<<move_to(2,2)<<color(200,0,0)<<box(_szel-4,_mag-4);
+            can<<move_to(_szel/2,_mag/2)<<color(0,0,0)<<text(std::to_string(_number));
+        }
+        //Amikor minden bueno
+        else{
+            can<<move_to(2,2)<<color(155,155,155)<<box(_szel-4,_mag-4);
+            can<<move_to(_szel/2,_mag/2)<<color(0,0,0)<<text(std::to_string(_number));
+        }
+
     }
     //Ha jó a szám
     else if(_number!=0 && _hiba==false && _locked==false){
@@ -22,10 +32,11 @@ void NumBox::rajzol() const{
         can<<move_to(_szel/2,_mag/2)<<color(0,0,0)<<text(std::to_string(_number));
     }
     //Ha nem jó
-    else if(_number!=0 && _hiba==true && _locked==false){
+    else if(_number!=0 && _hiba==true){
         can<<move_to(2,2)<<color(200,0,0)<<box(_szel-4,_mag-4);
         can<<move_to(_szel/2,_mag/2)<<color(0,0,0)<<text(std::to_string(_number));
     }
+    //Ha a szám 0
     else{
         can<<move_to(2,2)<<color(255,255,255)<<box(_szel-4,_mag-4);
     }
@@ -50,6 +61,11 @@ void NumBox::set_num(int n){
     }
 }
 
+bool NumBox::get_hiba() const{
+    return _hiba;
+}
+
+//Nem csinál semmit, de enélkül abstract
 void NumBox::micsi(event ev){}
 
 void NumBox::lock(bool b){

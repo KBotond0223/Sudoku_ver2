@@ -15,8 +15,7 @@ public:
     void ellenorMester(std::vector<NumBox*>);
     void ellenor(int,int,std::vector<NumBox*>);
     void tisztit(std::vector<NumBox*>);
-    void megold();
-    void set_num();
+    bool megold(std::vector<NumBox*>);
 };
 
 #endif // JATEKMESTER_HPP
