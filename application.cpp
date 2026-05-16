@@ -18,7 +18,7 @@ void Application::event_loop(){
             for (size_t i=0;i<_widgets.size();i++) {
                 if (_widgets[i]->benne_van(ev.pos_x, ev.pos_y)) {
                     focus = i;
-                    action("mouse",focus);
+                    action("mouse",ev,focus);
                 }
             }
         }

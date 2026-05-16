@@ -12,6 +12,7 @@ protected:
 public:
     JatekMester(Application*);
     void betolt(std::string,std::vector<NumBox*>);
+    void ellenorMester(std::vector<NumBox*>);
     void ellenor(int,int,std::vector<NumBox*>);
     void tisztit(std::vector<NumBox*>);
     void megold();

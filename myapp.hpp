@@ -13,7 +13,7 @@ class MyApp : public Application
 {
 public:
     MyApp(int, int);
-    void action(std::string,int) override;
+    void action(std::string,genv::event,int) override;
     void mas_map(int);
 protected:
     std::vector<NumBox*> _nbv;

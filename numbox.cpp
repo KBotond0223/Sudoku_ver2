@@ -26,6 +26,9 @@ void NumBox::rajzol() const{
         can<<move_to(2,2)<<color(200,0,0)<<box(_szel-4,_mag-4);
         can<<move_to(_szel/2,_mag/2)<<color(0,0,0)<<text(std::to_string(_number));
     }
+    else{
+        can<<move_to(2,2)<<color(255,255,255)<<box(_szel-4,_mag-4);
+    }
     gout << stamp(can,_x,_y);
 }
 

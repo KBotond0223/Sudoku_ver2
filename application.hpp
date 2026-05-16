@@ -12,7 +12,7 @@ class Application
 public:
     Application(int,int);
     void event_loop();
-    virtual void action(std::string,int)=0;
+    virtual void action(std::string,genv::event,int)=0;
     virtual void register_widget(Widget*);
     virtual void register_jm(JatekMester*);
 protected:

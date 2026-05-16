@@ -27,13 +27,38 @@ MyApp::MyApp(int szel, int mag): Application(szel,mag) {
         }
     }
     for(int i=0;i<2;i++){
-        PushButton* pb=new PushButton(this,400,100+i*70,100,50,to_string(i+1)+". map",to_string(i+1)+"map.txt");
+        PushButton* pb=new PushButton(this,700,100+i*70,100,50,to_string(i+1)+". map",to_string(i+1)+"map.txt");
         _pbv.push_back(pb);
     }
 }
 
-void MyApp::action(string id,int ind){
-
+void MyApp::action(string id,genv::event ev,int ind){
+    if(id=="mouse"){
+        if(ev.button==btn_left){
+            if(_widgets[ind]->get_name() == "nb"){
+                NumBox* nb = dynamic_cast<NumBox*>(_widgets[ind]);
+                if(nb){
+                    nb->set_num(_ni->data());
+                    for(int i = 0; i < _nbv.size(); i++){
+                        if(_nbv[i] == nb){
+                            int k = i / 9;  // row
+                            int l = i % 9;  // column
+                            _jm->ellenorMester(_nbv);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            for(int i = 0; i < _pbv.size(); i++){
+                if(_pbv[i]->get_data() == id){
+                    mas_map(i);
+                    break;
+                }
+            }
+        }
+    }
 }
 
 void MyApp::mas_map(int n){

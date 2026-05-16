@@ -47,7 +47,7 @@ void NumInput::micsi(event ev){
         }
     }
     if((ev.type == ev_mouse && ev.button==btn_left && (ev.pos_x>(_x+_szel/24*17) && ev.pos_x<(_x+_szel/24*23)) && (ev.pos_y>_y+_mag/16*9 && ev.pos_y<_y+_mag/16*15))
-        || ev.keycode == key_down){
+        || (ev.type == ev_key && ev.keycode == key_down)){
         _number-=1;
         if(_number<0){
             _number=0;
