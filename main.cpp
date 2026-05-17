@@ -3,6 +3,6 @@
 int main()
 {
     MyApp app(1000,800);
-    app.event_loop();
+    app.event_loop(1000,800);
     return 0;
 }

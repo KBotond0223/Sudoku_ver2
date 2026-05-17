@@ -28,8 +28,8 @@ void NumInput::micsi(event ev){
     //page gombok 10-el mennek fel-le
     if (ev.type == ev_key && ev.keycode == key_pgdn) {
         _number-=10;
-        if(_number<0){
-            _number=0;
+        if(_number<1){
+            _number=1;
         }
     }
     if (ev.type == ev_key && ev.keycode == key_pgup) {
@@ -39,18 +39,23 @@ void NumInput::micsi(event ev){
         }
     }
     //nyilakkal vagy kurzorral rányomva a gombokra 1-el mennek fel-le
+    //Változtatás: most a NumInput 1-től 9-ig mutat számokat
+    //Ezért törölni csak a jobb klikkel lehet
+    //Ezen felül az intervallum körkörösen működik, azaz ha 1 alá megyünk
+    //akkor a NumInput 9-re megy, és ugyanígy fordítva
+    //Ez csak gombok kattintására és a nyilakra működik, pgup-ra és pgdn-re nem
     if((ev.type == ev_mouse && ev.button==btn_left && (ev.pos_x>(_x+_szel/24*17) && ev.pos_x<(_x+_szel/24*23)) && (ev.pos_y>_y+_mag/16 && ev.pos_y<_y+_mag/16*7))
         || (ev.type == ev_key && ev.keycode == key_up)){
         _number+=1;
         if(_number>_interval){
-            _number=_interval;
+            _number=1;
         }
     }
     if((ev.type == ev_mouse && ev.button==btn_left && (ev.pos_x>(_x+_szel/24*17) && ev.pos_x<(_x+_szel/24*23)) && (ev.pos_y>_y+_mag/16*9 && ev.pos_y<_y+_mag/16*15))
         || (ev.type == ev_key && ev.keycode == key_down)){
         _number-=1;
-        if(_number<0){
-            _number=0;
+        if(_number<1){
+            _number=9;
         }
     }
 }

@@ -15,7 +15,7 @@ public:
     MyApp(int, int);
     void action(std::string,genv::event,int) override;
     void mas_map(int);
-    void jippie();
+    void set_jippie(bool);
     virtual void win_msg() const override;
 protected:
     bool _jippie=false;

@@ -10,7 +10,7 @@ using namespace genv;
 //Ezek csak a konstruktorok
 MyApp::MyApp(int szel, int mag): Application(szel,mag) {
     _jm = new JatekMester(this);
-    _ni= new NumInput(this,50,300,150,100,0,9);
+    _ni= new NumInput(this,50,300,150,100,1,9);
     int k=0;
     for(int i=0;i<9;i++){
         if(i%3==0 && i!=0){
@@ -45,8 +45,8 @@ void MyApp::action(string id,genv::event ev,int ind){
                     //NumBox-ok ellenőrzése
                     _jm->ellenorMester(_nbv);
                     //Ha igaz akkor nyertünk
-                    if(_jm->megold(_nbv)){
-                        jippie();
+                    if(_jm->megold(_nbv)==true){
+                        set_jippie(true);
                     }
 
                 }
@@ -81,13 +81,14 @@ void MyApp::action(string id,genv::event ev,int ind){
     }
 }
 
-void MyApp::jippie(){
-    _jippie=true;
+void MyApp::set_jippie(bool b){
+    _jippie=b;
 }
 
 void MyApp::win_msg() const{
     //Ha nyertünk akkor ezt írja ki
     if(_jippie==true){
+        gout.load_font("LiberationSans-Regular.ttf", 20);
         gout<<move_to(400,50)<<color(255,51,153)<<text("OH MY GOD!!!!");
         gout<<move_to(400,100)<<color(0,255,255)<<text("You've Won!");
         gout<<move_to(400,150)<<color(255,51,255)<<text("Feel free to try any other map");
@@ -96,7 +97,7 @@ void MyApp::win_msg() const{
 
 void MyApp::mas_map(int n){
     //Ha más map-ot játszunk akkor ez legyen hamis
-    _jippie=false;
+    set_jippie(false);
     _jm->tisztit(_nbv);
     _jm->betolt(_pbv[n]->get_data(),_nbv);
 }

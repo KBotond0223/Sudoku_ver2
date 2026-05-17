@@ -9,7 +9,7 @@ Application::Application(int szel,int mag){
 }
 
 
-void Application::event_loop(){
+void Application::event_loop(int szel,int mag){
 
     event ev;
     int focus = -1;
@@ -30,12 +30,17 @@ void Application::event_loop(){
         if (focus!=-1 && !(ev.type == ev_mouse && ev.button == btn_left)) {
             _widgets[focus]->micsi(ev);
         }
+        clear(szel, mag);
         for (Widget * w : _widgets) {
             w->rajzol();
         }
         win_msg();
         gout << refresh;
     }
+}
+
+void Application::clear(int szel, int mag){
+    gout<<move_to(0,0)<<color(0,0,0)<<box(szel,mag);
 }
 
 void Application::register_widget(Widget *w){
