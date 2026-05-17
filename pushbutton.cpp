@@ -24,6 +24,7 @@ void PushButton::rajzol()const{
 void PushButton::micsi(event ev){
     if (ev.type == ev_mouse && ev.button == btn_left) {
         if (benne_van(ev.pos_x, ev.pos_y)) {
+            //Itt küldi el a buttonben tárolt fájl nevét az actionnek
             _parent->action(_fajl,ev,-1);
         }
     }

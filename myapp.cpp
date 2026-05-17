@@ -69,6 +69,11 @@ void MyApp::action(string id,genv::event ev,int ind){
         }
 
     }
+    //Ha "arrow" akkor csak a NumInput tud rá reagálni
+    //Így nem is kell használni a NumInput gombjait, elég ha akárhol arrow-t nyomunk
+    else if(id=="arrow"){
+        _widgets[ind]->micsi(ev);
+    }
     //Ha nem "mouse" az id akkor az id egy fajl neve
     //Ezért itt biztosan egy PushButton lett lenyomva
     else{
